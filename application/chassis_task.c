@@ -37,6 +37,10 @@ float follow_relative_angle;
 struct pid pid_follow = {0}; //angle control
 static void chassis_imu_update(void *argc);
 
+void raising() {
+  printf("this is for raising\n", );
+}
+
 /**Eric Edited get data from ADC
   * @Jul 3, 2019: Add power gettter function: get_chassis_power
 */
