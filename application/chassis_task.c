@@ -28,6 +28,11 @@
 #define MAPPING_INDEX_CRT 1.0f
 #define MAPPING_INDEX_VTG 1.0f
 
+void powerLimit() {
+  printf("this is crazy\n", );
+  printf("more changes")
+}
+
 float follow_relative_angle;
 struct pid pid_follow = {0}; //angle control
 static void chassis_imu_update(void *argc);
@@ -132,8 +137,8 @@ void chassis_task(void const *argument)
         {
           twist_cnt = 1;
         }
-        else if(last_relative_angle * follow_relative_angle <= 0 || 
-                (follow_relative_angle>=DODGING_TH-2.5f && last_relative_angle<=DODGING_TH-2.5f)|| 
+        else if(last_relative_angle * follow_relative_angle <= 0 ||
+                (follow_relative_angle>=DODGING_TH-2.5f && last_relative_angle<=DODGING_TH-2.5f)||
                 (follow_relative_angle<=-DODGING_TH+2.5f && last_relative_angle>=-DODGING_TH+2.5f))
         {
           twist_cnt += 1;
@@ -194,9 +199,9 @@ void chassis_task(void const *argument)
         if(referee_power->chassis_power_buffer == 0)
           LED_R_ON();
         else if(chassis_check_enable(pchassis))
-          LED_R_OFF(); 
+          LED_R_OFF();
       //set the current & voltage flags
-        if(referee_power->chassis_power_buffer > LOW_BUFFER && chassis_power.voltage>LOW_VOLTAGE && 
+        if(referee_power->chassis_power_buffer > LOW_BUFFER && chassis_power.voltage>LOW_VOLTAGE &&
            chassis_power.current > (CHASSIS_POWER_TH+LOW_BUFFER)/WORKING_VOLTAGE)
         {
           current_excess_flag = 2;
@@ -210,7 +215,7 @@ void chassis_task(void const *argument)
           current_excess_flag = 0;
         }
         if(chassis_power.voltage<LOW_VOLTAGE || sensor_offline&VOLTAGE_OFFLINE)
-          low_volatge_flag = 1;          
+          low_volatge_flag = 1;
         else
           low_volatge_flag = 0;
       //control the supercap
@@ -230,7 +235,7 @@ void chassis_task(void const *argument)
         }
         else if(chassis_check_enable(pchassis) && referee_power->chassis_power_buffer!=0)
         {
-          LED_R_OFF(); 
+          LED_R_OFF();
         }
         //Share the flags and data with the gimbal
         current_excess_flag_js = current_excess_flag;
@@ -264,7 +269,7 @@ static void chassis_imu_update(void *argc)
 /**Added by Y.H. Liu
  * @Jul 2X, 2019: define the function
  * @Jul 28, 2019: modify the logic
- * 
+ *
  * RetVal: 0----write low to the relay, supercapacitor is charging
  *         1----write high to the relay, supercapacitor is discharging
  */
@@ -276,17 +281,17 @@ static uint8_t superCapacitor_Ctrl(chassis_t pchassis, uint8_t low_cap_flag, uin
   else // no longer excessing
   {
     if(get_time_ms()-last_operation_time<SUPER_CAP_HOLDING_TIME)
-      return last_sw; 
+      return last_sw;
     else
     {
       last_operation_time = get_time_ms();
       if(low_cap_flag)
         return 0; // no excess & timeout & (low volatge or offline)
-      else 
+      else
         return 1;
     }
   }
-  
+
 }
 #endif
 
@@ -299,7 +304,7 @@ int32_t chassis_set_relative_angle(float angle)
 /**Added by Eric Chen
  * @Jun 2019: Define the function & current
  * @Jul 23, 2019: Change the current to be *current* by Y.H. Liu
- * 
+ *
  * BRIEF: refresh the power of 2 chassis
  * PARAM: chassis_power ---- struct storing the power data
  *        -  current_debug ---- raw data from current sensor
