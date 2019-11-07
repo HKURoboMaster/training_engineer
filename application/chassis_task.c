@@ -41,6 +41,10 @@ void raising() {
   printf("this is for raising\n", );
 }
 
+void grabbing() {
+  printf("this is for grabbing\n", );
+}
+
 /**Eric Edited get data from ADC
   * @Jul 3, 2019: Add power gettter function: get_chassis_power
 */
