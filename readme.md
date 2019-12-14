@@ -10,9 +10,11 @@ The purpose of this document is to highlight the key steps in utilising Git and 
   - approving pull requests only after comprehensive code reviews
   - squash and merge those `branch`es into `master`
 
-![merge_conflicts_everywhere](./readme_img/merge_conflicts_everywhere.png)
+Based on those ideas, our project structure should be as follows.
 
-The ultimate objective of following a set of rigorous procedure during development is to guarantee that the `master` branches of each robot's repository contain code that must work for corresponding robots. It requires the cooperation of all contributing team members through proper communication.
+![branched_repos](./readme_img/branched_repos.jpg)
+
+The ultimate objective of following a set of rigorous procedure during development is to guarantee that the `master` branches of each robot's repository contain code that must work for corresponding robots. It requires the cooperation of all contributing team members through **proper communication**.
 
 ### Reading this documentation
 We shall take `training_base` being the `base` repository as noted above, and `training_engineer` as our test repository.
@@ -113,18 +115,20 @@ This is where `git rebase` comes in. Here's how it works. Analogy used: stacking
 
 ![git rebase](/readme_img/git_rebase.jpeg)
 
-First, checkout to master and pull.
+Here are the steps:
+1. Checkout to master and pull.
 
 `git checkout master`
 `git pull`
+`git checkout -i raising`
 
-Secondly, use git rebase.
+2. Use git rebase.
 
 `git rebase -i master`
 
-Thirdly, resolve any conflicts.
+3. Resolve any conflicts.
 
-Lastly, push to the `raising` branch by force.
+4. Push to the `raising` branch by force.
 
 `git push -f`
 
@@ -134,11 +138,13 @@ Lastly, push to the `raising` branch by force.
 Now, we conclude this section by making a pull request for `raising`. The usual, code review and merging procedures follow afterwards.
 
 ## Making changes to `training_base`
-Let's say a certain change must be made to all of the robots. We do that in the `base` repository.
+Let's say a certain change (like a protocol update) must be made to all of the robots. We do that in the `base` repository as such.
 
 Create a feature `branch` within `training base`. Write, commit and push code to that `branch`.
 
 The usual pull request / review / merging procedures are applied here as well.
+
+![rebase_against_base](./readme_img/rebase_against_base.jpg)
 
 ## Rebasing against `training_base` in `training_engineer`
 
@@ -161,6 +167,4 @@ Rebase against the `master` branch of the `base` remote (refers to `training_bas
 Resolve any conflicts, in which we usually do see some.
 
 ## Conclusion
-![errors_everywhere](./readme_img/errors_everywhere.png)
-
 Resolving conflicts through rebasing can be a pain, sometimes it may take up to 5 maybe 10 minutes to carefully go through each commit and making sure that the correct block of code is selected. However, patience pays off very well in this regard because it truly ensures that we always have a set of working software that we can implement in our robots.
